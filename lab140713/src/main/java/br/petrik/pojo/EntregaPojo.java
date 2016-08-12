@@ -1,6 +1,8 @@
 package br.petrik.pojo;
 
-public class EntregaPojo {
+import java.io.Serializable;
+
+public class EntregaPojo implements Serializable{
 
 	private int idEntrega;
 	private String endereco;

@@ -1,9 +1,10 @@
 package br.petrik.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class VendaPojo {
+public class VendaPojo implements Serializable{
 
 	private int idVenda;
 	private List<String> itens;
