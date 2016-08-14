@@ -17,6 +17,8 @@ import br.petrik.servlets.Venda;
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 public class MdbLogistica implements MessageListener {
 
+	// Finalizando!
+
 	private final static Logger LOGGER = Logger.getLogger(MdbLogistica.class.toString());
 
 	@Override
