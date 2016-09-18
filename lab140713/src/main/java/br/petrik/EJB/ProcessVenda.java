@@ -22,7 +22,7 @@ public class ProcessVenda {
 
 	public void processarVenda(VendaPojo venda) {
 
-		System.out.println("Venda recebida pelo EJB Process Venda");
+		System.out.println("EJB Process Venda: Recebido@@!!");
 
 		final Destination destination = topicVenda;
 

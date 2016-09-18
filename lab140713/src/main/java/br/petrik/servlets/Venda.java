@@ -29,22 +29,18 @@ public class Venda extends HttpServlet {
 
 		System.out.println("Processo de venda foi iniciado...");
 
-		// Lista com itens comprados.
 		List<String> itensVenda = new ArrayList<>();
 		itensVenda.add("Arroz");
-		itensVenda.add("Feijão");
-		itensVenda.add("Carne");
+		itensVenda.add("Batata");
+		itensVenda.add("Macarrão");
 
-		// Instância um objeto do tipo Venda para repassar ao EJB ProcessVenda.
-		VendaPojo venda = new VendaPojo(1, itensVenda, new BigDecimal(250.50));
+		VendaPojo venda = new VendaPojo(1, itensVenda, new BigDecimal(100.00));
 
-		System.out.println("Gerando processo de venda...");
-
-		// Envia o objeto
+		System.out.println("Gerando a venda...");
 		processVenda.processarVenda(venda);
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		out.write("Processo de venda foi encaminhado.");
+		out.write("Venda foi encaminhada.");
 	}
 }

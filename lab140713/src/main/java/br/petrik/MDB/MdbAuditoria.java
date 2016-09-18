@@ -27,7 +27,7 @@ public class MdbAuditoria implements MessageListener {
 				msg = (ObjectMessage) rcvMessage;
 				VendaPojo venda = (VendaPojo) msg.getObject();
 
-				System.out.println("MdbAuditoria: venda concluida!");
+				System.out.println("MdbAuditoria: venda finalizada!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

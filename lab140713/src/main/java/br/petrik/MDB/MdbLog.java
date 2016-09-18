@@ -29,7 +29,7 @@ public class MdbLog implements MessageListener{
 				msg = (ObjectMessage) rcvMessage;
 				VendaPojo venda = (VendaPojo) msg.getObject();
 
-				System.out.println("MdbLog: venda concluida!");
+				System.out.println("MdbLog: venda finalizada!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

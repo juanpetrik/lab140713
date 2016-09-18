@@ -23,7 +23,7 @@ public class ProcessEntrega {
 
 	public void processarEntrega(EntregaPojo entrega) {
 
-		System.out.println("Entrega recebida pelo EJB Process Entrega");
+		System.out.println("EJB Process Entrega: Recebido@@!!");
 
 		final Destination destination = (Destination) queuePedido;
 

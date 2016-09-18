@@ -27,7 +27,7 @@ public class MdbContabilidade implements MessageListener{
 				msg = (ObjectMessage) rcvMessage;
 				VendaPojo venda = (VendaPojo) msg.getObject();
 
-				System.out.println("MdbContabilidade: venda concluida!");
+				System.out.println("MdbContabilidade: venda finalizada!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

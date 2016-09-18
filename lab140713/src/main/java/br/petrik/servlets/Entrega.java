@@ -24,18 +24,18 @@ public class Entrega extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		System.out.println("Processo de entrega foi iniciado...");
+		System.out.println("Comeõu processo de Entrega..");
 
 		// Instância um objeto do tipo Entrega para repassar ao EJB ProcessEntrega.
 		EntregaPojo entrega = new EntregaPojo(1, "Rua 3 de março");
 
-		System.out.println("Gerando remessa de entrega...");
+		System.out.println("Gerando a entrega...");
 
 		// Envia o objeto
 		processEntrega.processarEntrega(entrega);
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
-		out.write("Processo de entrega foi despachado.");
+		out.write("Enviado a entrega...");
 	}
 }
