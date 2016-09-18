@@ -10,6 +10,7 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import br.petrik.pojo.VendaPojo;
 import br.petrik.servlets.Venda;
 
 @MessageDriven(name = "MdbVenda", activationConfig = {
@@ -26,7 +27,9 @@ public class MdbVenda implements MessageListener{
 		try {
 			if (rcvMessage instanceof ObjectMessage) {
 				msg = (ObjectMessage) rcvMessage;
-				Venda venda = (Venda) msg.getObject();
+				VendaPojo venda = (VendaPojo) msg.getObject();
+
+				System.out.println("MdbVenda: venda concluida!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

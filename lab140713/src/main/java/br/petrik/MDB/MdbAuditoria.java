@@ -9,12 +9,12 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
-import br.petrik.servlets.Venda;
+import br.petrik.pojo.VendaPojo;
 
 @MessageDriven(name = "MdbAuditoria", activationConfig = {
-	    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
-	    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-	    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
+		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
+		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 public class MdbAuditoria implements MessageListener {
 
 	private final static Logger LOGGER = Logger.getLogger(MdbAuditoria.class.toString());
@@ -25,7 +25,9 @@ public class MdbAuditoria implements MessageListener {
 		try {
 			if (rcvMessage instanceof ObjectMessage) {
 				msg = (ObjectMessage) rcvMessage;
-				Venda venda = (Venda) msg.getObject();
+				VendaPojo venda = (VendaPojo) msg.getObject();
+
+				System.out.println("MdbAuditoria: venda concluida!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

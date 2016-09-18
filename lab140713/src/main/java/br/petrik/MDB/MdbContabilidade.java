@@ -8,9 +8,8 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
 
-import br.petrik.servlets.Venda;
+import br.petrik.pojo.VendaPojo;
 
 @MessageDriven(name = "MdbContabilidade", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
@@ -26,7 +25,9 @@ public class MdbContabilidade implements MessageListener{
 		try {
 			if (rcvMessage instanceof ObjectMessage) {
 				msg = (ObjectMessage) rcvMessage;
-				Venda venda = (Venda) msg.getObject();
+				VendaPojo venda = (VendaPojo) msg.getObject();
+
+				System.out.println("MdbContabilidade: venda concluida!");
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

@@ -9,8 +9,6 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
-import br.petrik.servlets.Venda;
-
 @MessageDriven(name = "MdbLogistica", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
@@ -27,19 +25,17 @@ public class MdbLogistica implements MessageListener {
 		try {
 			if (rcvMessage instanceof ObjectMessage) {
 				msg = (ObjectMessage) rcvMessage;
-				Venda venda = (Venda) msg.getObject();
 
-				LOGGER.info("Mensagem : " + msg);
-				LOGGER.info("Processando");
+				LOGGER.info("MDBLogistica esta realizando a entrega.");
+				LOGGER.info("Processando...");
 
 				Thread.sleep(30000);
 
-				LOGGER.info("A entrega foi mandada embora kk..");
+				LOGGER.info("Entrega finalizada.");
+
 			} else {
 				LOGGER.warning("Message of Wrong type: " + rcvMessage);
 			}
-		} catch (JMSException e) {
-			throw new RuntimeException(e);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
