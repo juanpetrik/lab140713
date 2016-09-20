@@ -1,0 +1,1 @@
+wsimport -p br.petrik.EntregaWSclient -keep -d src_ws http://localhost:8080/lab140713/EntregaWS?wsdl

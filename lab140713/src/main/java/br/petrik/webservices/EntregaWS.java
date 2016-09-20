@@ -19,9 +19,9 @@ public class EntregaWS {
 
 	@WebMethod(operationName = "enviarEntrega")
 	@WebResult(name = "entregaResult")
-	protected void enviarEntrega() throws ServletException, IOException {
+	public void enviarEntregaService() throws ServletException, IOException {
 
-		EntregaPojo entrega = new EntregaPojo(5, "Rua 5 de mar");
+		EntregaPojo entrega = new EntregaPojo(5, "Rua 5 de março - WEBSERVICE");
 
 		processEntrega.processarEntrega(entrega);
 	}

@@ -22,7 +22,7 @@ public class VendaWS {
 
 	@WebMethod(operationName = "enviarVenda")
 	@WebResult(name = "vendaResult")
-	protected void enviarVenda() throws ServletException, IOException {
+	public void enviarVendaService() throws ServletException, IOException {
 
 		List<String> itensVenda = new ArrayList<>();
 		itensVenda.add("Arroz");
