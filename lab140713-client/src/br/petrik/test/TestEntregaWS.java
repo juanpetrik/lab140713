@@ -22,7 +22,5 @@ public class TestEntregaWS {
 		} catch (ServletException_Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
