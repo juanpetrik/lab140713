@@ -1,5 +1,7 @@
 package br.petrik.MDB;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -8,7 +10,10 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import br.petrik.persistencia.Log;
 import br.petrik.pojo.VendaPojo;
 
 @MessageDriven(name = "MdbAuditoria", activationConfig = {
@@ -19,6 +24,9 @@ public class MdbAuditoria implements MessageListener {
 
 	private final static Logger LOGGER = Logger.getLogger(MdbAuditoria.class.toString());
 
+	@PersistenceContext(unitName = "lab140713-persistence-unit")
+	private EntityManager em;
+
 	@Override
 	public void onMessage(Message rcvMessage) {
 		ObjectMessage msg = null;
@@ -27,7 +35,20 @@ public class MdbAuditoria implements MessageListener {
 				msg = (ObjectMessage) rcvMessage;
 				VendaPojo venda = (VendaPojo) msg.getObject();
 
-				System.out.println("MdbAuditoria: venda finalizada!");
+				//System.out.println("MdbAuditoria: venda finalizada!"); -> Mensagem antiga.. trocada pelo envio ao banco..
+
+				Log log = new Log();
+
+				SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat dfHour = new SimpleDateFormat("HH:mm:ss");
+
+				log.setHora(dfHour.format(new Date()));
+				log.setData(dfDate.format(new Date()));
+				log.setMdb("Auditoria");
+				log.setInformacao("MdbAuditoria: venda " + venda.getIdVenda() + " com valor total de R$ " + venda.getTotal() + " finalizada!");
+
+				em.persist(log);
+
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}

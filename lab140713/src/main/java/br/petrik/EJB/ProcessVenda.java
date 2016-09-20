@@ -22,7 +22,7 @@ public class ProcessVenda {
 
 	public void processarVenda(VendaPojo venda) {
 
-		System.out.println("EJB Process Venda: Recebido@@!!");
+		//System.out.println("EJB Process Venda: Recebido@@!!");
 
 		final Destination destination = topicVenda;
 
@@ -33,7 +33,7 @@ public class ProcessVenda {
 			message.setObject(venda);
 			context.createProducer().send(destination, message);
 
-			System.out.println("A venda foi repassada.");
+			//System.out.println("A venda foi repassada.");
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,7 +1,5 @@
 package br.petrik.EJB;
 
-import java.util.Queue;
-
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,6 +7,7 @@ import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
+import javax.jms.Queue;
 
 import br.petrik.pojo.EntregaPojo;
 
@@ -23,7 +22,7 @@ public class ProcessEntrega {
 
 	public void processarEntrega(EntregaPojo entrega) {
 
-		System.out.println("EJB Process Entrega: Recebido@@!!");
+		//System.out.println("EJB Process Entrega: Recebido@@!!");
 
 		final Destination destination = (Destination) queuePedido;
 
@@ -34,11 +33,9 @@ public class ProcessEntrega {
 			message.setObject(entrega);
 			context.createProducer().send(destination, message);
 
-			System.out.println("A entrega foi repassada.");
+			//System.out.println("A entrega foi repassada.");
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

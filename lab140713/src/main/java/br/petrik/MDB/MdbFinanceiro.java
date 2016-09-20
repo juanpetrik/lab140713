@@ -1,5 +1,7 @@
 package br.petrik.MDB;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -8,10 +10,11 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import br.petrik.persistencia.Log;
 import br.petrik.pojo.VendaPojo;
-import br.petrik.servlets.Venda;
 
 @MessageDriven(name = "MdbFinanceiro", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/TopicVenda"),
@@ -21,6 +24,9 @@ public class MdbFinanceiro implements MessageListener{
 
 	private final static Logger LOGGER = Logger.getLogger(MdbFinanceiro.class.toString());
 
+	@PersistenceContext(unitName = "lab140713-persistence-unit")
+	private EntityManager em;
+
 	@Override
 	public void onMessage(Message rcvMessage) {
 		ObjectMessage msg = null;
@@ -29,7 +35,19 @@ public class MdbFinanceiro implements MessageListener{
 				msg = (ObjectMessage) rcvMessage;
 				VendaPojo venda = (VendaPojo) msg.getObject();
 
-				System.out.println("MdbFinanceiro: venda finalizada!");
+				//System.out.println("MdbFinanceiro: venda finalizada!");
+
+				Log log = new Log();
+
+				SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat dfHour = new SimpleDateFormat("HH:mm:ss");
+
+				log.setHora(dfHour.format(new Date()));
+				log.setData(dfDate.format(new Date()));
+				log.setMdb("Financeiro");
+				log.setInformacao("MdbFinanceiro: venda " + venda.getIdVenda() + " com valor total de R$ " + venda.getTotal() + " finalizada!");
+
+				em.persist(log);
 			} else {
 				LOGGER.warning("Message of wrong type: " + rcvMessage.getClass().getName());
 			}
